@@ -56,8 +56,6 @@ function scrollDown() {
 }
 
 async function openImage(evt) {
-  console.dir(evt);
-
   if (evt.target.nodeName === "IMG") {
     const image = await pixabayAPI
       .fetchImageById(evt.target.id)
