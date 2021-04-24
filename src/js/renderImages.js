@@ -23,6 +23,7 @@ function onSubmit(evt) {
 
   pixabayAPI.query = refs.searchQuery.value;
   pixabayAPI.fetchImages().then(({ hits }) => renderImages(hits));
+  newSuccess();
 }
 
 function renderImages(images) {
@@ -32,7 +33,6 @@ function renderImages(images) {
   }
 
   refs.gallery.insertAdjacentHTML("beforeend", photosMarkup(images));
-  newSuccess();
   refs.gallery.addEventListener("click", openImage);
 }
 
