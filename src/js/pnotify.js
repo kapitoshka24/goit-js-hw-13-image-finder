@@ -8,7 +8,6 @@ const settings = {
   maxTextHeight: null,
   mouseReset: false,
   delay: 2000,
-  width: 500,
 };
 
 export const newError = () =>
