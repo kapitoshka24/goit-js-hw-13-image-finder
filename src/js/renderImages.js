@@ -23,6 +23,7 @@ function onSubmit(evt) {
 
   pixabayAPI.query = refs.searchQuery.value;
   pixabayAPI.fetchImages().then(({ hits }) => renderImages(hits));
+  newSuccess();
 }
 
 function renderImages(images) {

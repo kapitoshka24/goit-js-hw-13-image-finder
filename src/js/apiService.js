@@ -17,7 +17,6 @@ export default class PixabayAPI {
 
       const images = await response.json();
       this.incrementPage();
-      newSuccess();
 
       return images;
     } catch {
