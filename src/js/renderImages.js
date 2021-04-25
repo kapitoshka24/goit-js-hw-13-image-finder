@@ -22,8 +22,10 @@ function onSubmit(evt) {
   refs.gallery.innerHTML = "";
 
   pixabayAPI.query = refs.searchQuery.value;
-  pixabayAPI.fetchImages().then(({ hits }) => renderImages(hits));
-  newSuccess();
+
+  pixabayAPI.fetchImages().then(({ hits }) => {
+    renderImages(hits);
+  });
 }
 
 function renderImages(images) {
@@ -32,6 +34,7 @@ function renderImages(images) {
     return;
   }
 
+  newSuccess();
   refs.gallery.insertAdjacentHTML("beforeend", photosMarkup(images));
   refs.gallery.addEventListener("click", openImage);
 }
