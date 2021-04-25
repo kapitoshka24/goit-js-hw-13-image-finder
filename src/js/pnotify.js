@@ -11,6 +11,12 @@ const settings = {
   width: "250px",
 };
 
+export const newServerError = () =>
+  error({
+    text: "Something went wrong on a server. Try to repeat the request later.",
+    ...settings,
+  });
+
 export const newError = () =>
   error({
     text: "Empty input! Enter something.",
