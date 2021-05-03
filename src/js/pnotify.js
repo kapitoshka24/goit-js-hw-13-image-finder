@@ -23,12 +23,6 @@ export const newError = () =>
     ...settings,
   });
 
-export const newErrorLoad = () =>
-  error({
-    text: "Nothing to load. Search something!",
-    ...settings,
-  });
-
 export const newInfo = () =>
   info({
     text: "I found nothing! Repeat the request.",

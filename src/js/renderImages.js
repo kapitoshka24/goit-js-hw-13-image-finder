@@ -3,12 +3,11 @@ import PixabayAPI from "./apiService";
 import photosMarkup from "../template/photo-card.hbs";
 import imageMarkup from "../template/image.hbs";
 import * as basicLightbox from "basiclightbox";
-import { newError, newErrorLoad, newInfo, newSuccess } from "./pnotify";
+import { newError, newInfo, newSuccess } from "./pnotify";
 
 const pixabayAPI = new PixabayAPI();
 
 refs.searchForm.addEventListener("submit", onSubmit);
-refs.loadMoreBtn.addEventListener("click", onLoadMore);
 
 function onSubmit(evt) {
   evt.preventDefault();
@@ -25,38 +24,34 @@ function onSubmit(evt) {
 
   pixabayAPI.fetchImages().then(({ hits }) => {
     renderImages(hits);
+
+    if (!hits.length) {
+      newInfo();
+      return;
+    } else newSuccess();
   });
 }
 
 function renderImages(images) {
-  if (!images.length) {
-    newInfo();
-    return;
-  }
-
-  newSuccess();
   refs.gallery.insertAdjacentHTML("beforeend", photosMarkup(images));
   refs.gallery.addEventListener("click", openImage);
 }
 
-function onLoadMore() {
-  if (!refs.searchQuery.value) {
-    newErrorLoad();
-    return;
-  }
-
-  pixabayAPI.fetchImages().then(({ hits }) => {
-    renderImages(hits);
-    scrollDown();
+const onEntry = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && refs.searchQuery.value !== "") {
+      pixabayAPI.fetchImages().then(({ hits }) => {
+        renderImages(hits);
+      });
+    }
   });
-}
+};
 
-function scrollDown() {
-  window.scrollTo({
-    top: document.documentElement.scrollTop + window.innerHeight,
-    behavior: "smooth",
-  });
-}
+const observer = new IntersectionObserver(onEntry, {
+  rootMargin: "300px",
+});
+
+observer.observe(refs.sentinel);
 
 async function openImage(evt) {
   if (evt.target.nodeName === "IMG") {

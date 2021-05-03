@@ -1,4 +1,4 @@
-import { newServerError, newSuccess } from "./pnotify";
+import { newServerError } from "./pnotify";
 
 const API_KEY = "21315741-9bacfcacd69aafd45f00bd411";
 const BASE_URL = "https://pixabay.com/api/";
